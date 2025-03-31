@@ -4,7 +4,8 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
-import  { dirname } from 'path';
+
+import path, { dirname, join } from 'path';
 import cookieParser from 'cookie-parser';
 import userroutes from './routes/user/index.js';
 
@@ -15,6 +16,8 @@ import routes from './routes/auth/index.js';
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 app.use(cors({
   origin: [
@@ -24,8 +27,8 @@ app.use(cors({
   ],
   
   credentials: true  
-}));
-
+})); 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(bodyParser.json());
 app.use(cookieParser());
 

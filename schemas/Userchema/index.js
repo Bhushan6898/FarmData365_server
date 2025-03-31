@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-// Farming User Schema
 const farmingUserSchema = new Schema({
   name: { 
     type: String, 
@@ -38,7 +37,7 @@ const farmingUserSchema = new Schema({
     enum: ["Farmer", "Buyer", "Admin"], 
     default: "Farmer" 
   },
-  profileImage: { type: String }, // Optional field for profile picture
+  profileImage: { type: String }, 
   status: { 
     type: String, 
     enum: ["Active", "Inactive"], 
@@ -50,6 +49,43 @@ const farmingUserSchema = new Schema({
     default: "NotGranted" 
   }
 }, { timestamps: true }); 
-
-
 export const FarmingUserModel = mongoose.model("FarmingUser", farmingUserSchema, "FarmingUser");
+
+const farmingdataSchema= new Schema({
+  farm:{
+    type:String,
+    trim:true,
+    required: true
+  },
+  farmName:{
+    type:String,
+    trim:true,
+    required: true
+  },
+  farmSize:{
+    type:String,
+    required: true
+  },
+  farmLocation:{
+    type:String,
+    required: true
+  },
+  seedToSow:{
+    type:String,
+    required: true
+  },
+  seedVariety:{
+    type:String,
+    required: true
+  },
+  farmImage:{
+    type:String,
+  },
+  userId: { 
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'FarmingUser',
+    required: true, 
+  },
+
+},{ timestamps: true });
+export const FarmingDataModel=mongoose.model("FarmingData",farmingdataSchema,"FarmingData");
