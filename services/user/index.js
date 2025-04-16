@@ -1,5 +1,5 @@
 
-import { FarmingDataModel } from "../../schemas/Userchema/index.js";
+import { FarmingDataModel, FarmingUserModel } from "../../schemas/Userchema/index.js";
 
 export const uploadfarmdata = async (req, res) => {
     const { id } = req.user;
@@ -10,9 +10,7 @@ export const uploadfarmdata = async (req, res) => {
             return res.status(400).json({ message: 'Please provide all the required fields.' });
         }
         const farmImage = req.file ? req.file.path.replace(/\\+/g, '/') : null;
-        console.log('====================================');
-        console.log(farmImage);
-        console.log('====================================');
+
         const newFarmData = new FarmingDataModel({
             farm,
             farmName,
@@ -61,4 +59,22 @@ export const getfarmdata = async (req, res) => {
         })
     }
 
+}
+
+export const getAllFarmers = async (re, res) => {
+
+    try {
+        const farmers = await FarmingUserModel.find();
+        if (!farmers) {
+            res.status(400).json({ messege: "farmers not found" })
+        }
+        res.status(200).json({
+            farmers: farmers,
+
+        })
+    } catch (error) {
+        console.log('====================================');
+        console.log(error);
+        console.log('====================================');
+    }
 }
