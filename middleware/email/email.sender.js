@@ -8,7 +8,7 @@ export const senderMail = nodemailer.createTransport({
     secure: false, // true for port 465, false for other ports
     auth: {
       user: "patil.bhushan6898@gmail.com",
-      pass: "lqsm soqp dfks pgfn",
+      pass: "gypa tdqu flqx wvqc",
     },
   });
   
